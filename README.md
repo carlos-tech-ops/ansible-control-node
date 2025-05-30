@@ -1,66 +1,78 @@
-# Ansible Control Node – Hardened SSH & Remote Access Automation
+# 🛡️ Ansible Control Node – Hardened SSH & Remote Access Automation
 
-This project configures a Fedora Linux system as an **Ansible control node** with:
-- Hardened SSH key-based remote access
-- Tailscale mesh VPN for zero-config connectivity
-- Ansible automation for user security & system lockdown
+This project transforms a **Fedora Linux laptop** into a hardened Ansible control node, featuring:
+
+- 🔐 SSH key-only remote access  
+- 🌐 Tailscale mesh VPN for secure zero-config connectivity  
+- ⚙️ Automated system lockdown via Ansible playbooks
+
+---
 
 ## ⚔️ Phase 1: Remote SSH Access via Tailscale
 
 ✔️ Password login disabled  
 ✔️ Custom SSH port (`2222`)  
-✔️ Key-based access only  
-✔️ Multi-device remote control (MacBook, iPhone)
+✔️ Key-based access only (ED25519)  
+✔️ Multi-device control (MacBook, iPhone via Termius)  
 
-### 🔧 Tools Used
-- Tailscale (mesh VPN)
-- SSH key authentication (ED25519)
-- macOS Terminal + Fedora
+**Security Enhancements:**
+- Root login disabled  
+- `fail2ban` active and logs synced nightly to MacBook  
+- SSH logs mirrored for auditing
 
-### 🔐 Security Enhancements
-- Root login disabled
-- `fail2ban` active with log sync to MacBook
-- SSH logs mirrored nightly
+---
+
+## 🔧 Tools Used
+
+- **Tailscale** – private mesh VPN  
+- **OpenSSH (ED25519)** – hardened key authentication  
+- **macOS Terminal + Fedora Workstation** – dev and control environment  
 
 ---
 
 ## ⚙️ Phase 2: Ansible Automation for Secure Access
 
-Using a self-written playbook:
+**Playbook File:** `playbooks/secure-access.yml`
 
-- 👤 Created a hardened user: `sysops`
-- 🔑 Installed MacBook's public SSH key
-- 🔒 Applied SSH hardening via `sshd_config`
-- 🔁 Restarted SSH safely with `systemctl`
-
-### 📁 Playbook File
-[`playbooks/secure-access.yml`](playbooks/secure-access.yml)
-
----
-
-## 🧠 Why This Matters
-
-✅ Designed for DevSecOps, remote sysadmin, and infrastructure automation  
-✅ Push-button onboarding for new secure users  
-✅ Config replicable across air-gapped or cloud-hosted servers
+This playbook automates:
+- 👤 Creation of a secure user: `sysops`  
+- 🔑 SSH key setup for MacBook login  
+- 🔒 SSH daemon hardening (`sshd_config`)  
+- 🧯 Safe restart of SSH service using `systemctl`  
+- 📂 Backup of original SSH configuration
 
 ---
 
-## 🛰️ Live Devices in the Mesh
+## 🧠 Why This Project Matters
 
-- **MacBook Pro** (client)
-- **Fedora Laptop** (control node)
-- **iPhone via Termius** (client with SSH auth)
-
-All connected over Tailscale. All login-secured via public key only.
+✅ Built for real-world DevSecOps, remote sysadmin, and infrastructure-as-code workflows  
+✅ Push-button onboarding for secure users  
+✅ Easily replicable across air-gapped systems, cloud instances, and physical machines  
 
 ---
 
-## 🚀 Next Phase
+## 🛰️ Live Devices in the Mesh (via Tailscale)
 
-Coming up:  
-- Multi-node Ansible roles  
-- Full infrastructure-as-code for user creation, backups, firewall, and alerts  
-- Auto-push to GitHub via cron + bash
+- **MacBook** (admin terminal)  
+- **Fedora Laptop** (Ansible control node)  
+- **iPhone via Termius** (remote client w/ key authentication)  
 
-> _Built by [Carlos Semeao](https://www.linkedin.com/in/carlos-semeao-04938a357/) • Linux + DevSecOps Apprentice_
+All devices communicate securely over Tailscale and authenticate via public SSH key only.
+
+---
+
+## 🚀 Next Phase (Planned)
+
+Coming soon:
+
+- 🧩 Multi-node Ansible role-based deployment  
+- 🔄 Git auto-push of state/config logs via `cron + bash`  
+- 🔐 Infrastructure-as-code: secure users, backups, firewall, fail2ban alerts  
+- 📡 Extend to VPS, Raspberry Pi, or cloud VMs
+
+---
+
+🧑‍💻 Built by **Carlos Semeao**  
+📍 Based in Luton, UK  
+🎯 Linux + DevSecOps Apprentice | GitHub: [carlos-tech-ops](https://github.com/carlos-tech-ops)  
+⏱️ Last updated: 2025-05-30
