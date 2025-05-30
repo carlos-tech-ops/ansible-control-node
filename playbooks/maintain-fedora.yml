@@ -1,0 +1,19 @@
+---
+- name: Maintain Fedora (update + basic packages)
+  hosts: local
+  become: true
+
+  tasks:
+    - name: Update All Packages
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: Ensure Useful Tools are Installed
+      dnf:
+        name:
+          - htop
+          - git
+          - fail2ban
+          - firewalld
+        state: present
